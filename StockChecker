@@ -1,1 +1,31 @@
+#imports
+import json 
+import smtplib
+import requests
+from bs4 import BeautifulSoup 
 
+
+
+def check_availability(url, phrase):
+        page = requests.get(url)
+        soup = BeautifulSoup(page.text, 'html.parser')
+
+        if phrase in soup.text:
+            return False
+        else:
+          return True 
+
+
+def main():
+    url = "https://shop.lululemon.com/error/outofstock?product=Everywhere%2520Belt%2520Bag&productId=prod8900747&title=Everywhere%2520Belt%2520Bag%2520%257C%2520Unisex%2520Bags%252CPurses%252CWallets&unifiedId=Everywhere-Belt-Baghttps://shop.lululemon.com/error/outofstock?product=Everywhere%2520Belt%2520Bag&productId=prod8900747&title=Everywhere%2520Belt%2520Bag%2520%257C%2520Unisex%2520Bags%252CPurses%252CWallets&unifiedId=Everywhere-Belt-Bag"
+    phrase = "Oh snap! Looks like we’re all out."
+    available = check_availability(url, phrase)
+    
+    
+    if available == True:
+      print("We have it!" + " " + url)
+    else:
+      print("We don't Have!" + " " + url)
+
+if __name__ == '__main__':
+    main()
